@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using WebApi.Errors;
 
 namespace WebApi.Controllers
 {
@@ -36,7 +37,7 @@ namespace WebApi.Controllers
 
             if (resultado == 0)
             {
-                throw new Exception("No se pudo actualizar el producto");
+                return NotFound(new CodeErrorResponse(404));
             }
             return Ok(category);
         }
@@ -58,6 +59,14 @@ namespace WebApi.Controllers
                 throw new Exception("No se pudo Eliminar la categoria");
             }
             return Ok("Categoria eliminado exitonsamente");
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Category>> GetProductId(int id)
+        {
+
+            return await _categoryRepository.GetByIdAsync(id);
+
         }
     }
 }

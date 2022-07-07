@@ -29,7 +29,7 @@ namespace WebApi.Controllers
 
             if (User == null)
             {
-                return Unauthorized(new CodeErrorResponse(401));
+                return NotFound(new CodeErrorResponse(404));
             }
 
             var result = await _signInManager.CheckPasswordSignInAsync(user, loginDto.Password, false);

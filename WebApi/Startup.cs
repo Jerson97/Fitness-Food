@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using WebApi.Dtos;
 using StackExchange.Redis;
+using BusinessLogic.Logic;
 
 namespace WebApi
 {
@@ -54,6 +55,8 @@ namespace WebApi
 
             services.AddScoped(typeof(IGenericRepository<>), (typeof(GenericRepository<>)));
             services.AddControllers();
+
+            services.AddScoped<IShoppingCartRepository, ShoppingCartRepository>();
 
         }
 

@@ -36,10 +36,10 @@ namespace BussinesLogic.Logic
             return await _contex.Set<T>().ToListAsync();
         }
 
-        public Task<int> GetByIdAsync(int id)
+        public async Task<T> GetByIdAsync(int id)
         {
 
-            throw new NotImplementedException();
+            return await _contex.Set<T>().FindAsync(id);
         }
 
         public async Task<int> Update(T entity)
@@ -49,9 +49,9 @@ namespace BussinesLogic.Logic
             return await _contex.SaveChangesAsync();
         }
 
-        Task<T> IGenericRepository<T>.GetByIdAsync(int id)
-        {
-            throw new NotImplementedException();
-        }
+        //Task<T> IGenericRepository<T>.GetByIdAsync(int id)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

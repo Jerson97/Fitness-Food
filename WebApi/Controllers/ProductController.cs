@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using WebApi.Errors;
 
 namespace WebApi.Controllers
 {
@@ -60,6 +61,19 @@ namespace WebApi.Controllers
                 throw new Exception("No se pudo Eliminar el producto");
             }
             return Ok("Producto eliminado exitonsamente");
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Product>> GetProductId(int id)
+        {
+
+            var product = await _productRepository.GetByIdAsync(id);
+
+            if (product == null)
+            {
+                return NotFound(new CodeErrorResponse(404));
+            }
+            return product;
         }
     }
 }
