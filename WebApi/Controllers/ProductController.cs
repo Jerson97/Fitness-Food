@@ -1,10 +1,12 @@
-﻿using Core.Entities;
+﻿using AutoMapper;
+using Core.Entities;
 using Core.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using WebApi.Dtos;
 using WebApi.Errors;
 
 namespace WebApi.Controllers
@@ -13,9 +15,11 @@ namespace WebApi.Controllers
     public class ProductController : BaseApiController
     {
         private readonly IGenericRepository<Product> _productRepository;
-        public ProductController(IGenericRepository<Product> productRepository)
+        private readonly IMapper _mapper;
+        public ProductController(IGenericRepository<Product> productRepository, IMapper mapper)
         {
             _productRepository = productRepository;
+            _mapper = mapper;
         }
 
         [HttpPost]
@@ -44,10 +48,13 @@ namespace WebApi.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Product>>> Get()
+        public async Task<ActionResult<List<ProductDto>>> Get()
         {
-            var result = await _productRepository.GetAllAsync();
-            return Ok(result);
+            var product = await _productRepository.GetAllAsync();
+
+            var productDto = _mapper.Map<IReadOnlyList<Product>, List<ProductDto>>(product);
+
+            return productDto;
 
         }
 
