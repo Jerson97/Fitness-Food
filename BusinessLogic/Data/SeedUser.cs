@@ -18,7 +18,7 @@ namespace BussinesLogic.Data
                 var usuario = new User
                 {
                     Name = "Jerson",
-                    lastname = "Soto",
+                    lastname = "Sotomayor",
                     UserName = "ramirez",
                     Email = "jersonramirez97@gmail.com",
                     Addres = new Addres
